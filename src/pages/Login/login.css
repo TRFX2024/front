@@ -1,0 +1,86 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+body{
+   
+    font-family: "Inter", sans-serif;
+    margin: 0;
+}
+
+.login-container{
+    display: grid;
+    height: 100vh;
+    place-items: center;
+    position: relative;
+}
+.login-content{
+    display: grid;
+    place-items: center;
+    background-color: white;
+    height: 100vh;
+    width: 100%;
+}
+.texts{
+    height: 3rem;
+    width: 25rem;
+    padding: 1rem;
+    border-radius: .5rem;
+    padding-left: .5rem;
+}
+.texts:focus{
+    outline: 1px solid red !important;
+}
+
+.btn-login{
+    width: 25rem;
+    height: 2.5rem;
+    background: linear-gradient(90deg, #d91111 0%, #ad0e0e 100%);
+    border: none;
+    border-radius: .3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    color: white;
+}
+.btn-login:hover{
+    color: #7e61e7;
+    background: #000;
+    color: white;
+}
+.camara{
+    height: 100vh;
+    width: 70%;
+    z-index: -1;
+    position: absolute;
+    object-fit: cover;
+}
+.parrafo{
+    height: 100vh;
+    width: 100%;
+}
+.parrafo::before{
+    content: '';
+    height: 100vh;
+    width: 100%;
+    background: #7e61e7;
+    position: absolute;
+    z-index: -1;
+    background: linear-gradient(180deg, #d91111d0 0%, #ad0e0e67 100%);
+}
+.login-cont{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    height: 100vh;
+    width: 100%;
+}
+.parrafo p{
+    height: -webkit-fill-available;
+    display: grid;
+    place-items: center;
+    font-size: 2rem;
+    color: white;
+}
+.login-t{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    align-items: center;
+}
