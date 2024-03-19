@@ -6,11 +6,9 @@ const NavBar = () => {
         <div className='nav-container'>
             <div className="links">
                 <a href="#" className="ref">Inicio</a>
-                <a href="#" className="ref"></a>
-                <a href="#" className="ref"></a>
-                <a href="#" className="ref"></a>
-                <a href="#" className="ref"></a>
-                <a href="#" className="ref"></a>
+                <a href="#" className="ref">Patentes</a>
+                <a href="#" className="ref">Historial</a>
+                <a href="#" className="ref">Lista Negra</a>
             </div>
         </div>
     );
