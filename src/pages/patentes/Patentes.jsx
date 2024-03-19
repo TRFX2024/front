@@ -1,4 +1,5 @@
 import React from 'react';
+import "./patente.css";
 const Patentes = () => {
     return (
         <div>

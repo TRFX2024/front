@@ -3,10 +3,11 @@ import video from '../../video/videoFondo.mp4';
 import "./login.css"
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { Input, Tooltip } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const Login = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const navigate = useNavigate();
     const [credentials, setCredentials] = useState({
         username: undefined,
         password: undefined
@@ -16,25 +17,12 @@ const Login = () => {
     useEffect(() => {
         // Fetch CSRF token from Django
         axios.get('http://teraflex.cl:90/csrf_endpoint/').then(response => {
-
+            console.log(response);
             setCsrfToken(response.data.csrf_token);
         }).catch(error => {
             console.error('Failed to fetch CSRF token:', error);
         });
     }, []);
-
-    const obtenerToken = async () =>{
-        try {
-            const res = await axios.get('http://teraflex.cl:90/csrf_endpoint/')
-            const {csrf_token} = res.data;
-            return csrf_token;
-        } catch (error) {
-            console.error('Failed to fetch CSRF token:', error);
-            return null;
-        }
-    }
-
-
 
     const handleSubmit = (e) => {
         console.log(e.target.value, e.target.id)
@@ -48,19 +36,21 @@ const Login = () => {
     const onClick = async (e) => {
         e.preventDefault();
         console.log(csrfToken);
-
         try {
-            const token = await obtenerToken();
-            if(token){
-                const config = {
-                    headers: {
-                        'X-CSRFToken': csrfToken
-                    }
-                };
-                const res = await axios.post('http://teraflex.cl:90/login', config);
-                console.log(res);
+            const res = await axios.post("http://teraflex.cl:90/login/", credentials, {
+                headers: {
+                    "X-CSRFToken" : csrfToken
+                }
+            });
+            console.log(res.data);
+            if(res.data.r){
+                navigate('/home');
+            }else{
+                alert("Usuario o contraseña, incorrecta")
             }
+            
         } catch (error) {
+            
             console.log(error);
         }
     }
