@@ -5,6 +5,9 @@ import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { Input, Tooltip } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+axios.defaults.withCredentials = true;
+
 const Login = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const navigate = useNavigate();
@@ -16,7 +19,7 @@ const Login = () => {
 
     useEffect(() => {
         // Fetch CSRF token from Django
-        axios.get('http://teraflex.cl:90/csrf_endpoint/').then(response => {
+        axios.get('https://teraflex.cl:9000/csrf_endpoint/').then(response => {
             console.log(response);
             setCsrfToken(response.data.csrf_token);
         }).catch(error => {
@@ -36,13 +39,20 @@ const Login = () => {
     const onClick = async (e) => {
         e.preventDefault();
         console.log(csrfToken);
+
         try {
-            const res = await axios.post("http://teraflex.cl:90/login/", credentials, {
+            const res = await axios.post("https://teraflex.cl:9000/login/", credentials,
+            {
+                withCredentials: true,
+            },
+            {
                 headers: {
                     "X-CSRFToken" : csrfToken
-                }
+                },
             });
             console.log(res.data);
+            localStorage.setItem("user", res.data.user);
+            localStorage.setItem("token", csrfToken);
             if(res.data.r){
                 navigate('/home');
             }else{

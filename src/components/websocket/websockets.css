@@ -1,0 +1,20 @@
+.image-socket{
+    height: 35rem;
+    width: 50rem;
+    border-radius: .2rem;
+}
+.web{
+    display: grid;
+    width: 100%;
+    place-items: center;
+}
+.web-content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    place-items: center;
+}
+.pat{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

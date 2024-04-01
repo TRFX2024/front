@@ -9,7 +9,8 @@ const NavBar = () => {
     const onClose = async (e) =>{
         e.preventDefault();
         try {
-            const res = await axios.post("http://teraflex.cl:90/logout/");
+            const res = await axios.post("https://teraflex.cl:9000/logout/");
+            localStorage.clear();
             if(res){
                 navigate("/");
             }
@@ -18,10 +19,13 @@ const NavBar = () => {
         }
     }
 
+    const admin = localStorage.getItem("user");
+    console.log(admin);
+
     return (
         <div className='nav-container'>
             <div className="links">
-                <h1 className='textad'>Bienvenido Usuario</h1>
+                <h1 className='textad'>Bienvenido {admin}</h1>
                 <div className="link">
                     <HomeOutlined className='icon' />
                     <a href="#" className="ref">Inicio</a>

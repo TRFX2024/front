@@ -3,6 +3,7 @@ import Login from "./pages/Login/Login"
 import Home from "./pages/home/Home";
 import Layout from "./layout/Layout";
 import "./App.css";
+import Patentes from "./pages/patentes/Patentes";
 
 
 function App() {
@@ -20,6 +21,10 @@ function App() {
           {
             path: "",
             element: <Home/>
+          },
+          {
+            path: "patentes",
+            element: <Patentes/>
           }
         ]
       }
