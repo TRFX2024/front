@@ -26,8 +26,8 @@ const Patentes = () => {
     }, []);
   
     return (
-        <div>
-            <h1>Petentes</h1>
+        <div className='sistema'>
+            <h1>Sistema de monitoreo</h1>
             <Websockets/>
         </div>
     );

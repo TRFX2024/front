@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './websockets.css';
+import { CarOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import ListaCamaras from '../listacamaras/ListaCamaras';
 
 const Websockets = () => {
     const [datas, setData] = useState(new Set());
@@ -27,9 +29,9 @@ const Websockets = () => {
             try {
                 const { data } = JSON.parse(event.data);
                 const { image } = JSON.parse(event.data);
-                const {ubicacion} = JSON.parse(event.data);
-                const {total_patentes} = JSON.parse(event.data);
-                const {total_infracciones} = JSON.parse(event.data);
+                const { ubicacion } = JSON.parse(event.data);
+                const { total_patentes } = JSON.parse(event.data);
+                const { total_infracciones } = JSON.parse(event.data);
                 console.log(image);
                 if (!datas.has(data)) {
                     setCurrentData(data);
@@ -65,32 +67,40 @@ const Websockets = () => {
 
     return (
         <div className='web'>
-            <h1>Patentes</h1>
             <div className="web-content">
                 {
                     currentData ? <div className="data">
                         <img src={`data:image/jpeg;base64,${base64}`} className='image-socket' alt="Imagen" />
                         <div className="pat">
-                            <p>Pantente</p>
-                            <p>{currentData}</p>
+                            <CarOutlined />
+                            <div className="pat-icon">
+                                <p>Pantente:</p>
+                                <p>{currentData}</p>
+                            </div>
+
                         </div>
                         <div className="pat">
-                            <p>Ubicacion</p>
-                            <p>{ubicacion}</p>
+                            <EnvironmentOutlined />
+                            <div className="pat-icon">
+                                <p>Ubicacion:</p>
+                                <p>{ubicacion}</p>
+                            </div>
                         </div>
 
                     </div> : <p>Cargando...</p>  // Muestra el mensaje de carga o el mensaje recibido del servidor según sea necesario.
                 }
                 <div className="data-r">
-                    <h1>Graficos</h1>
-                    <div className="cantidad-pat">
-                        <p>Cantidad de patentes</p>
-                        <p>{patentes}</p>
+                    <div className="data-g">
+                        <div className="cantidad-pat">
+                            <p className='cant'>Cantidad de patentes</p>
+                            <p className='num'>{patentes}</p>
+                        </div>
+                        <div className="cantidad-pat">
+                            <p className='cant'>Cantidad de Infracciones</p>
+                            <p className='num'>{infracciones}</p>
+                        </div>
                     </div>
-                    <div className="cantidad-pat">
-                        <p>Cantidad de Infracciones</p>
-                        <p>{infracciones}</p>
-                    </div>
+                    <ListaCamaras/>
                 </div>
             </div>
 

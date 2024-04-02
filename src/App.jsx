@@ -4,6 +4,7 @@ import Home from "./pages/home/Home";
 import Layout from "./layout/Layout";
 import "./App.css";
 import Patentes from "./pages/patentes/Patentes";
+import Historial from "./pages/historial/Historial";
 
 
 function App() {
@@ -25,6 +26,10 @@ function App() {
           {
             path: "patentes",
             element: <Patentes/>
+          },
+          {
+            path: "historial",
+            element: <Historial/>
           }
         ]
       }
