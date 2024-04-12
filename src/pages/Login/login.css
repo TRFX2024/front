@@ -20,7 +20,7 @@ body{
     width: 100%;
 }
 .texts{
-    height: 3rem;
+    height: 3.5rem;
     width: 25rem;
     padding: 1rem;
     border-radius: .5rem;
@@ -69,19 +69,49 @@ body{
 }
 .login-cont{
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
     height: 100vh;
     width: 100%;
 }
+.log-cont{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+}
 .parrafo p{
-    height: -webkit-fill-available;
+    height: 100%;
     display: grid;
     place-items: center;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    margin: 0;
     color: white;
 }
 .login-t{
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     align-items: center;
+}
+
+@media (max-width: 1000px) {
+    .log-cont{
+        display: grid;
+        grid-template-columns: none !important;
+        place-items: center;
+    }
+    .login-content{
+        position: relative;
+        border-radius: .5rem;
+        background-color: transparent;
+    }
+    .login-t{
+        background-color: white;
+    }
+    .parrafo{
+        position: absolute;
+    }
+    .texts{
+        width: 100%;
+    }
+    .username{
+        width: 100%;
+    }
+   
 }

@@ -1,0 +1,30 @@
+.imgModal{
+    height: 40rem;
+    width: 63rem;
+}
+.modal{
+    width: 100vh !important;
+    height: 100vh !important;
+}
+.i-patente{
+    width: 15rem;
+}
+.historial{
+    padding: 0 5rem;
+}
+.ant-pagination-item-active a{
+    color: #ad0e0e !important;
+}
+.ant-pagination-item-active{
+    border-color: #ad0e0e !important;
+}
+.ant-select-selector{
+    border-color: #ad0e0e !important;
+}
+.ant-select-selector:hover{
+    border-color: #ad0e0e !important;
+}
+.btn-h:hover{
+    border-color: #ad0e0e !important;
+    color: #ad0e0e !important;
+}

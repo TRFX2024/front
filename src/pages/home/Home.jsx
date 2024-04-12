@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const navigate = useNavigate();
-    useEffect(() => {
-        navigate("/home/patentes");
-    });
+    // useEffect(() => {
+    //     navigate("/home/patentes");
+    // });
 
     return (
         <div className='home-container'>

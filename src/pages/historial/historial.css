@@ -2,3 +2,11 @@
     height: 100vh;
     overflow: auto;
 }
+.btns{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+.ant-radio-button-wrapper:hover{
+    color: unset;
+}

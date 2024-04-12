@@ -21,7 +21,21 @@ const useFetch = (url) =>{
         fetchData();
     }, [url]);
 
-    return {data, error, loading};
+    const reFetch = async () => {
+        try {
+          setLoading(true);
+          const res = await axios.get(url);
+          setData(res.data);
+        } catch (error) {
+          setError(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+    
+      return { data, loading, error, reFetch, setData, setLoading };
 }
+
+
 
 export default useFetch;

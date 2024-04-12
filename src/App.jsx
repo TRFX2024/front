@@ -5,6 +5,7 @@ import Layout from "./layout/Layout";
 import "./App.css";
 import Patentes from "./pages/patentes/Patentes";
 import Historial from "./pages/historial/Historial";
+import Lista from "./pages/lista/Lista";
 
 
 function App() {
@@ -21,15 +22,15 @@ function App() {
         children: [
           {
             path: "",
-            element: <Home/>
-          },
-          {
-            path: "patentes",
             element: <Patentes/>
           },
           {
             path: "historial",
             element: <Historial/>
+          },
+          {
+            path: "lista",
+            element: <Lista/>
           }
         ]
       }

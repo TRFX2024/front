@@ -1,0 +1,32 @@
+.lista{
+    padding: 0 5rem;
+}
+.bnts{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+.btn-crear:hover{
+    border-color: #ad0e0e !important;
+    color: #ad0e0e !important;
+}
+.btn-c{
+    background-color: #ad0e0e;
+    border-color: #ad0e0e;
+    color: white;
+}
+.btn-c:hover{
+    background-color: white !important;
+    border-color: #ad0e0e !important;
+    color: #ad0e0e !important;
+}
+.inputTexts{
+    width: 20rem;
+}
+.inputText:hover, .inputTexts:hover{
+    border-color: #ad0e0e !important;
+}
+.inputText:focus, .inputText:focus{
+    border-color: #ad0e0e !important;
+
+}

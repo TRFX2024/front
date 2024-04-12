@@ -14,15 +14,19 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
+    "alertifyjs": "^1.13.1",
     "antd": "^5.16.0",
     "axios": "^1.6.8",
+    "bootbox": "^6.0.0",
     "framer-motion": "^11.0.14",
     "http-proxy-middleware": "^2.0.6",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-prompt-modal": "^1.0.6",
     "react-router-dom": "^6.22.3",
-    "socket.io-client": "^4.7.5"
+    "socket.io-client": "^4.7.5",
+    "sweetalert2": "^11.10.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.64",

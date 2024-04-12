@@ -1,19 +1,21 @@
 .image-socket{
-    height: 35rem;
-    width: 50rem;
+    height: 30rem;
+    width: 45rem;
     border-radius: .2rem;
 }
 .web{
     display: grid;
     width: 100%;
+    height: 100%;
     place-items: center;
-    overflow-x: scroll;
 }
 .web-content{
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 100%;
     justify-items: center;
+    height: 100%;
+    
 }
 
 .pat{
@@ -28,6 +30,8 @@
 }
 .data-r{
     display: grid;
+    padding: 3rem;
+    grid-template-rows: 15rem 1fr;
 }
 .data-g{
     display: grid;
@@ -37,7 +41,7 @@
 }
 .cantidad-pat{
     display: grid;
-    grid-template-rows: 1rem 1fr;
+    grid-template-rows: 1fr 1fr;
     justify-items: center;
     padding: 1rem 2rem;
     height: 10rem;
@@ -51,4 +55,28 @@
 }
 .cant{
     font-size: 1.5rem !important;
+    margin: 0 !important;
+}
+.data{
+    padding: 1rem;
+}
+
+@media (max-width: 1470px) {
+    .cant{
+        font-size: 1.2rem !important;
+    }
+    .cam{
+        overflow: auto;
+        height: 20rem;
+    }
+    .cantidad-pat{
+        height: max-content;
+    }
+}
+.carga{
+    height: 100%;
+    padding: 2rem
+}
+.sket{
+    height: 100%;
 }

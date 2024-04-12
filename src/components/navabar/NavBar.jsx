@@ -6,16 +6,16 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
     const navigate = useNavigate();
-    const onClose = async (e) =>{
+    const onClose = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post("https://teraflex.cl:9000/logout/");
             localStorage.clear();
-            if(res){
+            if (res) {
                 navigate("/");
             }
         } catch (error) {
-            
+
         }
     }
 
@@ -26,33 +26,31 @@ const NavBar = () => {
         <div className='nav-container'>
             <div className="links">
                 <h1 className='textad'>Bienvenido {admin}</h1>
-                <div className="link">
+                {/* <div className="link">
                     <HomeOutlined className='icon' />
                     <a href="#" className="ref">Inicio</a>
-                </div>
-                <div className="link">
-                    <CarOutlined className='icon' />
-                    <Link to={"patentes"}><a href="#" className="ref">Patentes</a></Link>
-                </div>
-                <div className="link">
-                    <HistoryOutlined className='icon' />
-                    <Link to={"historial"}><a href="#" className="ref">Historial</a></Link>
-                </div>
-                <div className="link">
-                    <UnorderedListOutlined className='icon' />
-                    <a href="#" className="ref">Lista Negra</a>
-                </div>
-                <div className="link">
-                    <UnorderedListOutlined className='icon' />
-                    <a href="#" className="ref">Lista Negra</a>
-                </div>
-                <div className="link">
+                </div> */}
+                <Link className='link' to={""}>
+                    <div className="link">
+                        <CarOutlined className='icon' />
+                        <a className="ref">Patentes</a>
+                    </div>
+                </Link>
+                <Link className='link' to={"historial"}>
+                    <div className="link">
+                        <HistoryOutlined className='icon' />
+                        <a className="ref">Historial</a>
+                    </div>
+                </Link>
+                <Link className='link' to={"lista"}>
+                    <div className="link">
+                        <UnorderedListOutlined className='icon' />
+                        <a className="ref">Lista Negra</a>
+                    </div>
+                </Link>
+                <div className="link" onClick={onClose} >
                     <LogoutOutlined className='icon' />
-                    <a className='' >Logout</a>
-                </div>
-                <div className="link">
-                    <LogoutOutlined className='icon' />
-                    <a className='' onClick={onClose} >Logout</a>
+                    <a className='ref'>Logout</a>
                 </div>
             </div>
         </div>

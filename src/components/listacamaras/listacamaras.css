@@ -17,7 +17,7 @@
     place-items: center;
 }
 .camera-list{
-    height: max-content;
+    height: 30rem;
     padding-bottom: 2rem;
     border: 1px solid rgba(128, 128, 128, 0.144);;
     background: rgba(128, 128, 128, 0.144);
@@ -31,4 +31,43 @@
 .camera-cont{
     display: grid;
     gap: 1rem;
+}
+.num{
+    margin: 0;
+}
+.cam{
+    overflow: auto;
+    height: 27rem;
+}
+.badge{
+    width: auto;
+}
+.ant-badge-count{
+    display: grid !important;
+    place-items: center !important;
+    font-size: 2rem !important;
+    height: 3rem !important;
+}
+.coment{
+    margin-bottom: 2rem;
+}
+.coment-text{
+    height: 10rem !important;
+}
+.ant-checkbox-wrapper .ant-checkbox-checked .ant-checkbox-inner{
+    background-color: #ad0e0e !important; /* Cambia a tu color preferido */
+    border-color: #ad0e0e !important; /* Cambia a tu color preferido */
+  }
+  .ant-checkbox-wrapper span:hover{
+    border-color: #ad0e0e !important;
+  }
+  .ant-wave-target{
+    border-color: #ad0e0e !important;
+  }
+@media (max-width: 1470px) {
+    .num{
+        font-size: 2rem !important;
+        padding: 0;
+        margin: 0;
+    }
 }
