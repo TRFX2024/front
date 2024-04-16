@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './tablahistorico.css';
 import { Image, Modal, Space, Table, Tag, Button } from 'antd';
+import not from '../../imgs/notFound.png';
 import axios from 'axios';
 
 const TablaHistorico = ({ registros }) => {
-    const [img, setimg] = useState({});
+    const [img, setimg] = useState(null);
     const [alertas, setAlertas] = useState([]);
     const [comentario, setComentario] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalOpenC, setIsModalOpenC] = useState(false);
     useEffect(() => {
-        const data = async()=>{
+        const data = async () => {
             try {
                 const res = await axios.get('https://teraflex.cl:9000/alerta_ciudades/');
                 console.log(res.data.alertas);
@@ -20,7 +21,7 @@ const TablaHistorico = ({ registros }) => {
             }
         }
         data();
-        
+
     }, []);
     const obtenerImg = async (id) => {
         try {
@@ -42,7 +43,7 @@ const TablaHistorico = ({ registros }) => {
         }
 
     }
-   
+
     const showModal = (id) => {
         obtenerImg(id);
         setIsModalOpen(true);
@@ -51,7 +52,7 @@ const TablaHistorico = ({ registros }) => {
         obtenerCom(id);
         setIsModalOpenC(true);
     }
-      
+
     const handleOk = () => {
         setIsModalOpen(false);
         setIsModalOpenC(false);
@@ -60,7 +61,7 @@ const TablaHistorico = ({ registros }) => {
         setIsModalOpen(false);
         setIsModalOpenC(false);
     };
-    
+
     const columnsAlert = [
         {
             title: 'Id',
@@ -130,7 +131,7 @@ const TablaHistorico = ({ registros }) => {
             render: (_, record) => (
                 <Space size="middle">
                     {
-                        record.infraccion__descripcion ? <Button className='btn-h' onClick={()=> verComentario(record.id)}>Comentario</Button> : <p> </p>
+                        record.infraccion__descripcion ? <Button className='btn-h' onClick={() => verComentario(record.id)}>Comentario</Button> : <p> </p>
                     }
                 </Space>
             ),
@@ -145,8 +146,10 @@ const TablaHistorico = ({ registros }) => {
             <Modal title="Imagen" open={isModalOpen} onCancel={handleCancel} img={img} className='modal' footer={[
                 <Button className='btn-h' onClick={handleCancel}>Cerrar</Button>
             ]}>
-                <Image src={img} alt="" className='imgModal'/>
-                
+                {
+                    img && <Image src={img} fallback={not} className='imgModal' />
+                }
+
             </Modal>
             <Modal title="Comentario" open={isModalOpenC} onOk={handleOk} onCancel={handleCancel} img={img} className='modals' footer={[
                 <Button className='btn-h' onClick={handleCancel}>Cerrar</Button>

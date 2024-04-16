@@ -15,11 +15,14 @@ const Websockets = ({ grupo1 }) => {
     const [datas, setData] = useState(new Set());
     const [api, contextHolder] = notification.useNotification();
     const [base64, setBase64] = useState();
+    const [detalle, setDetalle] = useState();
     const [patentes, setPatentes] = useState();
     const [ubicacion, setUbicacion] = useState();
     const [infracciones, setInfracciones] = useState();
     const [currentData, setCurrentData] = useState(null);
     const [id, setId] = useState();
+    const [img, setimg] = useState();
+    const [ayuda, setAyuda] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [idAlerta, setAlerta] = useState("");
     const [prueba, setPrueba] = useState(0);
@@ -29,6 +32,8 @@ const Websockets = ({ grupo1 }) => {
     const [contadorPatentes, setContadorPatentes] = useState(0);
     const audioRef = useRef(null);
     const [reproducir, setRepro] = useState(false);
+
+    const [openModal, setOpenModal] = useState(false);
 
     const columns = [
         {
@@ -62,12 +67,30 @@ const Websockets = ({ grupo1 }) => {
         },
     ];
 
+    const obtenerDetalle = async () => {
+        try {
+            const { data } = await axios.get(`https://teraflex.cl:9000/detalles_patentes/`);
+            console.log(data.respuesta);
+            setDetalle(data.respuesta);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const closeMod = () => {
+        setOpenModal(false);
+    }
+    const openMod = () => {
+        console.log("pase");
+        obtenerDetalle();
+        setOpenModal(!openModal);
+    }
     const enviarId = async (id) => {
         try {
 
             console.log(id);
             const res = await axios.get(`https://teraflex.cl:9000/visto_alerta?id=${id}`);
             api.destroy();
+            setAyuda(!ayuda);
             setRepro(false);
             console.log(res);
 
@@ -76,6 +99,16 @@ const Websockets = ({ grupo1 }) => {
         } finally {
             console.log("final");
         }
+    }
+    const obtenerImg = async (id) => {
+        try {
+            const resp = await axios.get(`https://teraflex.cl:9000/ver_imagen_alerta?id=${id}`, { responseType: 'blob' });
+            const url = URL.createObjectURL(resp.data);
+            setimg(url);
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     useEffect(() => {
@@ -188,7 +221,7 @@ const Websockets = ({ grupo1 }) => {
         obtener();
 
     }, [cont, prueba]);
-
+    //Obtener notificacion alertar
     useEffect(() => {
         const obtener = async () => {
             try {
@@ -201,7 +234,7 @@ const Websockets = ({ grupo1 }) => {
             }
         }
         obtener();
-    }, []);
+    }, [ayuda]);
 
     const btn = (
         <Space>
@@ -213,7 +246,8 @@ const Websockets = ({ grupo1 }) => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-    const showModal = () => {
+    const showModal = (id) => {
+        obtenerImg(id);
         setIsModalOpen(true);
     };
 
@@ -222,9 +256,6 @@ const Websockets = ({ grupo1 }) => {
         <div className='web'>
             {contextHolder}
             <div className="web-content">
-                {
-                    console.log(prueba)
-                }
                 <audio ref={audioRef} autoPlay>
                     <source src={sonido} type="audio/mpeg" />
                     Your browser does not support the audio element.
@@ -262,17 +293,32 @@ const Websockets = ({ grupo1 }) => {
                 <div className="data-r">
                     <div className="data-g">
                         <div className="cantidad-pat">
-                            <p className='cant'>Cantidad de patentes</p>
-                            {
-                                patentes ? <p className='num'>{patentes}</p> : <Skeleton active />
-                            }
-                        </div>
-                        <div className="cantidad-pat">
                             <p className='cant'>Cantidad de Infracciones</p>
                             {
                                 infracciones ? <p className='num'>{infracciones}</p> : <Skeleton active />
                             }
+
                         </div>
+                        <div className="cantidad-pat" onClick={openMod}>
+                            <p className='cant'>Cantidad de patentes</p>
+                            {
+                                patentes ? <p className='num'>{patentes}</p> : <Skeleton active />
+                            }
+                            <Modal title="Detalles patentes tomadas por portico" open={openModal} onCancel={closeMod} className='modPor' footer={[
+                                <Button className='btn-h' onClick={closeMod}>Cerrar</Button>
+                            ]}>
+                            {
+                                detalle ? detalle.map((de) => (
+                                    <div className="detalle">
+                                        <h1>{de.carpeta}: </h1>
+                                        <h1>{de.cantidad_registros}</h1>
+                                    </div>
+                                )) : <Skeleton active />
+                            }
+
+                            </Modal>
+                        </div>
+
                     </div>
                     <ListaCamaras registros={registros} contador={contador} setPrueba={setPrueba} />
                     <div className="camera-list">
@@ -283,8 +329,9 @@ const Websockets = ({ grupo1 }) => {
                                 <Modal title="Imagen" open={isModalOpen} onCancel={handleCancel} className='modal' footer={[
                                     <Button className='btn-h' onClick={handleCancel}>Cerrar</Button>
                                 ]}>
-                                    <h1>hola</h1>
-
+                                    {
+                                        img && <Image src={img} fallback={not} />
+                                    }
                                 </Modal>
                             </div>
                         </div>
