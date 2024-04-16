@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import './websockets.css';
 import { CarOutlined, EnvironmentOutlined, SmileOutlined } from '@ant-design/icons';
 import ListaCamaras from '../listacamaras/ListaCamaras';
-import { Skeleton, notification } from 'antd';
+import { Skeleton, Space, Button, notification, Table, Modal, Image } from 'antd';
 import axios from 'axios';
 import not from '../../imgs/notFound.png';
 import sonido from '../../imgs/sonido1.mp3'
 let cont = 0;
+let idA = 0
+import ReactPlayer from 'react-player'
 
 const Websockets = ({ grupo1 }) => {
     console.log(grupo1)
@@ -18,14 +20,63 @@ const Websockets = ({ grupo1 }) => {
     const [infracciones, setInfracciones] = useState();
     const [currentData, setCurrentData] = useState(null);
     const [id, setId] = useState();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [idAlerta, setAlerta] = useState("");
     const [prueba, setPrueba] = useState(0);
     const [contador, setContador] = useState(0);
     const [registros, setRegistros] = useState([]);
+    const [alertas, setAlertas] = useState([]);
     const [contadorPatentes, setContadorPatentes] = useState(0);
     const audioRef = useRef(null);
+    const [reproducir, setRepro] = useState(false);
 
+    const columns = [
+        {
+            title: 'Id',
+            dataIndex: 'id',
+            key: 'id',
+        },
+        {
+            title: 'Patente',
+            dataIndex: 'patente',
+            key: 'patente',
+        },
+        {
+            title: 'Ciudad envia',
+            dataIndex: 'ciudad_envia__nombre',
+            key: 'ciudad_envia__nombre',
+        },
+        {
+            title: 'Comentario',
+            dataIndex: 'comentario',
+            key: 'comentario',
+        },
+        {
+            title: 'Ver imagen',
+            key: 'ver',
+            render: (_, record) => (
+                <Space size="middle">
+                    <Button className='btn-h' onClick={() => showModal(record.id)}>Ver Imagen</Button>
+                </Space>
+            ),
+        },
+    ];
 
+    const enviarId = async (id) => {
+        try {
 
+            console.log(id);
+            const res = await axios.get(`https://teraflex.cl:9000/visto_alerta?id=${id}`);
+            api.destroy();
+            setRepro(false);
+            console.log(res);
+
+        } catch (error) {
+            console.log(error);
+        } finally {
+            console.log("final");
+        }
+    }
 
     useEffect(() => {
         // Establece la conexión WebSocket
@@ -48,14 +99,18 @@ const Websockets = ({ grupo1 }) => {
             console.log(destino);
             console.log(grupo1)
             if (type === "notificacion") {
+                const { id_alerta } = JSON.parse(event.data);
+                setAlerta(id_alerta);
                 console.log("hola")
                 console.log(grupo1);
                 console.log(destino);
                 if (destino === grupo1) {
+                    console.log(idAlerta);
                     console.log("grupo", grupo1);
                     console.log("destino", destino);
                     api.open({
                         message: 'Alerta ciudad vecina',
+                        duration: 0,
                         description:
                             `La ciudad ${origen} informa que la patente ${patente} se dirige posiblemente a tu ciudad `,
                         icon: (
@@ -65,8 +120,10 @@ const Websockets = ({ grupo1 }) => {
                                 }}
                             />
                         ),
+                        btn,
+
                     });
-                    audioRef.current.play();
+                    setRepro(true)
 
                 }
             }
@@ -131,6 +188,36 @@ const Websockets = ({ grupo1 }) => {
         obtener();
 
     }, [cont, prueba]);
+
+    useEffect(() => {
+        const obtener = async () => {
+            try {
+                const { data } = await axios.get("https://teraflex.cl:9000/alerta_ciudades_noti/");
+                console.log(data.alertas);
+                setAlertas(data.alertas);
+            } catch (error) {
+                console.log(error);
+
+            }
+        }
+        obtener();
+    }, []);
+
+    const btn = (
+        <Space>
+            <Button type="primary" size="small" onClick={() => enviarId(idA)}>
+                Confirmar
+            </Button>
+        </Space>
+    );
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    idA = idAlerta
     return (
         <div className='web'>
             {contextHolder}
@@ -138,10 +225,11 @@ const Websockets = ({ grupo1 }) => {
                 {
                     console.log(prueba)
                 }
-                <audio ref={audioRef}>
+                <audio ref={audioRef} autoPlay>
                     <source src={sonido} type="audio/mpeg" />
                     Your browser does not support the audio element.
                 </audio>
+                <ReactPlayer style={{ position: 'absolute' }} url={sonido} playing={reproducir} loop={true} />
 
                 {/* <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                     <p>{currentData}</p>
@@ -187,6 +275,21 @@ const Websockets = ({ grupo1 }) => {
                         </div>
                     </div>
                     <ListaCamaras registros={registros} contador={contador} setPrueba={setPrueba} />
+                    <div className="camera-list">
+                        <h1>Notificación de alerta</h1>
+                        <div className="cam">
+                            <div className="camera-cont">
+                                <Table columns={columns} dataSource={alertas} />
+                                <Modal title="Imagen" open={isModalOpen} onCancel={handleCancel} className='modal' footer={[
+                                    <Button className='btn-h' onClick={handleCancel}>Cerrar</Button>
+                                ]}>
+                                    <h1>hola</h1>
+
+                                </Modal>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

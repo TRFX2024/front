@@ -30,8 +30,9 @@
 }
 .data-r{
     display: grid;
+    gap: .4rem;
     padding: 3rem;
-    grid-template-rows: 15rem 1fr;
+    grid-template-rows: 15rem 1fr 1fr;
 }
 .data-g{
     display: grid;

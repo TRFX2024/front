@@ -5,6 +5,7 @@ import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { Input, Tooltip } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import logo from '../../imgs/Logo2.jpg';
 
 axios.defaults.withCredentials = true;
 
@@ -68,15 +69,16 @@ const Login = () => {
     return (
         <div className='login-container'>
             <div className="login-cont">
-                <video src={video} className='camara' autoPlay loop />
+                <video src={video} className='camara' autoPlay loop muted />
                 <div className="log-cont">
                     <div className="parrafo">
                         <p>
-                            Inicia sesión para poder ver las camaras en tiempo real
+                            Sistema Centralizado Porticos Lectores de Patentes
                         </p>
                     </div>
                     <div className="login-content">
                         <div className="login-t">
+                            <img src={logo} alt="" />
                             <h1 className=''>Iniciar Sesion</h1>
                             <div className="username">
                                 <p>Nombre</p>
@@ -102,7 +104,9 @@ const Login = () => {
                                 <Input.Password id='password' onChange={handleSubmit} className='texts' placeholder="Escribir contraseña" />
                             </div>
                             <Link to={"/home"}><button onClick={onClick} className='btn-login'>Login</button></Link>
-
+                            <div className="recuperar">
+                                <p>En caso de perdidad de contraseña o tener acceso al sistema contactar a: <a href="mailto:sistemas@teraflex.cl" className='color-a'>sistemas@teraflex.cl</a> </p>
+                            </div>
                         </div>
                     </div>
                 </div>

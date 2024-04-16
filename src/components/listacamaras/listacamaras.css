@@ -17,7 +17,7 @@
     place-items: center;
 }
 .camera-list{
-    height: 30rem;
+    height: 17rem;
     padding-bottom: 2rem;
     border: 1px solid rgba(128, 128, 128, 0.144);;
     background: rgba(128, 128, 128, 0.144);
@@ -37,7 +37,7 @@
 }
 .cam{
     overflow: auto;
-    height: 27rem;
+    height: 14rem;
 }
 .badge{
     width: auto;

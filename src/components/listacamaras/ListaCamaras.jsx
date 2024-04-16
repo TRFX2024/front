@@ -31,6 +31,8 @@ const ListaCamaras = ({ registros, contador, setPrueba }) => {
                 const { data } = await axios.get("https://teraflex.cl:9000/ciudades_vecinas/");
                 console.log(data.data);
                 setCiudad(data.data);
+                const todasMarcadas = data.data.map(ciu => ciu.destino__nombre);
+                setCiudades(todasMarcadas);
             } catch (error) {
                 console.log(error);
             }
