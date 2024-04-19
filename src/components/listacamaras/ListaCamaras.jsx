@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './listacamaras.css';
 import axios from 'axios';
-import { Table, Space, Button, Badge, Modal, Checkbox, Input } from 'antd';
+import not from '../../imgs/notFound.png';
+import { Table, Space, Button, Badge, Modal, Checkbox, Input, Image } from 'antd';
 
 const ListaCamaras = ({ registros, contador, setPrueba }) => {
     // const [camaras, setCamaras] = useState([]);
@@ -20,7 +21,9 @@ const ListaCamaras = ({ registros, contador, setPrueba }) => {
     const [ciudades, setCiudades] = useState([]);
     const [id, setId]= useState();
     const [ciudad, setCiudad] = useState([]);
+    const [img, setimg] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen2, setIsModalOpen2] = useState(false);
     const checkValues = (c) =>{
         console.log(c);
         setCiudades(c);
@@ -55,16 +58,32 @@ const ListaCamaras = ({ registros, contador, setPrueba }) => {
             console.log(error); 
         }
     }
+    const obtenerImg = async (id) => {
+        try {
+            const resp = await axios.get(`https://teraflex.cl:9000/ver_imagen_infraccion?id=${id}`, { responseType: 'blob' });
+            const url = URL.createObjectURL(resp.data);
+            setimg(url);
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
 
     const showModal = (id) => {
         console.log(id);
         setId(id);
         setIsModalOpen(true);
     }
+    const showModal2 = (id) => {
+        obtenerImg(id)
+        setIsModalOpen2(true);
+    }
     const handleOk = () => {
+        setIsModalOpen2(false);
         setIsModalOpen(false);
     }
     const handleCancel = () => {
+        setIsModalOpen2(false);
         setIsModalOpen(false);
     }
 
@@ -85,15 +104,29 @@ const ListaCamaras = ({ registros, contador, setPrueba }) => {
             key: 'patente',
         },
         {
+            title: 'Fecha',
+            dataIndex: 'fecha',
+            key: 'fecha'
+        },
+        {
             title: 'Infraccion',
             dataIndex: 'nombre_infraccion',
             key: 'nombre_infraccion',
+        }
+        , {
+            title: 'Agregar comentario',
+            key: 'ver',
+            render: (_, record) => (
+                <Space size="middle">
+                    <Button onClick={()=> showModal(record.id)}   className='btn-h'>Agregar Comentario</Button>
+                </Space>
+            ),
         }, {
             title: 'Ver imagen',
             key: 'ver',
             render: (_, record) => (
                 <Space size="middle">
-                    <Button onClick={()=> showModal(record.id)}   className='btn-h'>Agregar Comentario</Button>
+                    <Button onClick={()=> showModal2(record.id)}   className='btn-h'>Ver imagen</Button>
                 </Space>
             ),
         },
@@ -102,7 +135,7 @@ const ListaCamaras = ({ registros, contador, setPrueba }) => {
     return (
         <Badge count={contador} className='badge'>
             <div className='camera-list'>
-                <h1>Notificación de infracción</h1>
+                <h1>Infracciones</h1>
                 <div className="cam">
                     <div className="camera-cont">
                         {/* {
@@ -137,6 +170,14 @@ const ListaCamaras = ({ registros, contador, setPrueba }) => {
                                 <p>Ciudades para enviar notificacion</p>
                                 <Checkbox.Group options={options} className='check' onChange={checkValues} />
                             </div>
+                        </Modal>
+                        <Modal title="Imagen Infracción" open={isModalOpen2} onCancel={handleCancel} onOk={handleOk} className='modal' footer={[
+                            <Button onClick={handleCancel} className='btn-h'>Cerrar</Button>,
+                            
+                        ]}>
+                            {
+                                        img && <Image src={img} fallback={not} />
+                            }
                         </Modal>
                     </div>
                 </div>

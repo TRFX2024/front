@@ -20,13 +20,13 @@
 
 .pat{
     display: grid;
-    grid-template-columns: 10rem 10rem;
+    grid-template-columns: 10rem 25rem;
     font-size: 2rem;
     place-items: center;
 }
 .pat-icon{
     display: grid;
-    grid-template-columns: 11rem 5rem;
+    grid-template-columns: 10rem 20rem;
 }
 .data-r{
     display: grid;
@@ -56,7 +56,7 @@
     cursor: pointer;
 }
 .cant{
-    font-size: 1.5rem !important;
+    font-size: 1.3rem !important;
     margin: 0 !important;
     cursor: pointer;
 }
@@ -76,9 +76,6 @@
         overflow: auto;
         height: 20rem;
     }
-    .cantidad-pat{
-        height: max-content;
-    }
 }
 .carga{
     height: 100%;
@@ -90,3 +87,13 @@
 .modPor{
     width: 40rem !important;
 }
+@media (max-width: 1366px) {
+    .image-socket{
+        height: 20rem;
+        width: 30rem;
+    }
+    .cantidad-pat{
+        height: 9rem;
+    }
+}
+

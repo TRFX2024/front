@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './websockets.css';
-import { CarOutlined, EnvironmentOutlined, SmileOutlined } from '@ant-design/icons';
+import { CameraOutlined, CarOutlined, EnvironmentOutlined, SmileOutlined } from '@ant-design/icons';
 import ListaCamaras from '../listacamaras/ListaCamaras';
 import { Skeleton, Space, Button, notification, Table, Modal, Image } from 'antd';
 import axios from 'axios';
 import not from '../../imgs/notFound.png';
 import sonido from '../../imgs/sonido1.mp3'
 let cont = 0;
-let idA = 0
+let idA = 0;
+let idB = 0;
 import ReactPlayer from 'react-player'
 
 const Websockets = ({ grupo1 }) => {
@@ -18,6 +19,7 @@ const Websockets = ({ grupo1 }) => {
     const [detalle, setDetalle] = useState();
     const [patentes, setPatentes] = useState();
     const [ubicacion, setUbicacion] = useState();
+    const [camara, setCamara] = useState();
     const [infracciones, setInfracciones] = useState();
     const [currentData, setCurrentData] = useState(null);
     const [id, setId] = useState();
@@ -32,7 +34,7 @@ const Websockets = ({ grupo1 }) => {
     const [contadorPatentes, setContadorPatentes] = useState(0);
     const audioRef = useRef(null);
     const [reproducir, setRepro] = useState(false);
-
+    const [reproducir2, setRepro2] = useState(false);
     const [openModal, setOpenModal] = useState(false);
 
     const columns = [
@@ -90,6 +92,7 @@ const Websockets = ({ grupo1 }) => {
             console.log(id);
             const res = await axios.get(`https://teraflex.cl:9000/visto_alerta?id=${id}`);
             api.destroy();
+            console.log(ayuda);
             setAyuda(!ayuda);
             setRepro(false);
             console.log(res);
@@ -99,6 +102,11 @@ const Websockets = ({ grupo1 }) => {
         } finally {
             console.log("final");
         }
+    }
+    const cerrar = (me) => {
+        console.log(me);
+        api.destroy();
+        setRepro2(false)
     }
     const obtenerImg = async (id) => {
         try {
@@ -153,7 +161,7 @@ const Websockets = ({ grupo1 }) => {
                                 }}
                             />
                         ),
-                        btn,
+                        btn: btnC,
 
                     });
                     setRepro(true)
@@ -167,22 +175,37 @@ const Websockets = ({ grupo1 }) => {
                 const { total_patentes } = JSON.parse(event.data);
                 const { total_infracciones } = JSON.parse(event.data);
                 const { infraccion } = JSON.parse(event.data);
+                const { carpeta } = JSON.parse(event.data);
+                console.log(infraccion);
+                setCurrentData(data);
+                setBase64(image);
+                setCamara(carpeta);
+                setUbicacion(ubicacion);
+                setPatentes(total_patentes);
+                setInfracciones(total_infracciones);
+                setId(infraccion);
+                setData(prevSet => new Set(prevSet.add(data)));
+                setContadorPatentes(prevContador => prevContador + 1)
+                if (infraccion === 2) {
+                    console.log("pase");
+                    api.open({
+                        message: 'Alerta infracción',
+                        duration: 0,
+                        description:
+                            `La patente ${data} tiene infracción `,
+                        icon: (
+                            <SmileOutlined
+                                style={{
+                                    color: '#d91111',
+                                }}
+                            />
+                        ),
+                        btn: botonCerrar,
 
-
-                if (!datas.has(data)) {
-                    setCurrentData(data);
-                    setBase64(image);
-                    setUbicacion(ubicacion);
-                    setPatentes(total_patentes);
-                    setInfracciones(total_infracciones);
-                    setId(infraccion);
-                    setData(prevSet => new Set(prevSet.add(data)));
-                    setContadorPatentes(prevContador => prevContador + 1)
-                    if (infraccion === 2) {
-                        audioRef.current.play();
-                        console.log(cont);
-                        cont = cont + 1;
-                    }
+                    });
+                    setRepro2(true)
+                    console.log(cont);
+                    cont = cont + 1;
                 }
             } catch (error) {
                 console.error('Error al procesar el mensaje:', error);
@@ -236,9 +259,16 @@ const Websockets = ({ grupo1 }) => {
         obtener();
     }, [ayuda]);
 
-    const btn = (
+    const btnC = (
         <Space>
             <Button type="primary" size="small" onClick={() => enviarId(idA)}>
+                Confirmar
+            </Button>
+        </Space>
+    );
+    const botonCerrar = (
+        <Space>
+            <Button type="primary" size="small" onClick={cerrar}>
                 Confirmar
             </Button>
         </Space>
@@ -261,7 +291,7 @@ const Websockets = ({ grupo1 }) => {
                     Your browser does not support the audio element.
                 </audio>
                 <ReactPlayer style={{ position: 'absolute' }} url={sonido} playing={reproducir} loop={true} />
-
+                <ReactPlayer style={{ position: 'absolute' }} url={sonido} playing={reproducir2} loop={true} />
                 {/* <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                     <p>{currentData}</p>
                 </Modal> */}
@@ -274,10 +304,17 @@ const Websockets = ({ grupo1 }) => {
                         <div className="pat">
                             <CarOutlined />
                             <div className="pat-icon">
-                                <p>Pantente:</p>
+                                <p>Patente:</p>
                                 <p>{currentData}</p>
                             </div>
 
+                        </div>
+                        <div className="pat">
+                            <CameraOutlined/>
+                            <div className="pat-icon">
+                                <p>Camara:</p>
+                                <p >{camara}</p>
+                            </div>
                         </div>
                         <div className="pat">
                             <EnvironmentOutlined />
@@ -287,6 +324,7 @@ const Websockets = ({ grupo1 }) => {
                             </div>
                         </div>
 
+
                     </div> : <Skeleton active className='carga' />
                     // Muestra el mensaje de carga o el mensaje recibido del servidor según sea necesario.
                 }
@@ -295,26 +333,30 @@ const Websockets = ({ grupo1 }) => {
                         <div className="cantidad-pat">
                             <p className='cant'>Cantidad de Infracciones</p>
                             {
-                                infracciones ? <p className='num'>{infracciones}</p> : <Skeleton active />
+                                infracciones ? <p className='num'>{infracciones}</p> : <Skeleton active paragraph={{
+                                    rows: 2,
+                                }} />
                             }
 
                         </div>
                         <div className="cantidad-pat" onClick={openMod}>
                             <p className='cant'>Cantidad de patentes</p>
                             {
-                                patentes ? <p className='num'>{patentes}</p> : <Skeleton active />
+                                patentes ? <p className='num'>{patentes}</p> : <Skeleton active paragraph={{
+                                    rows: 2,
+                                }} />
                             }
                             <Modal title="Detalles patentes tomadas por portico" open={openModal} onCancel={closeMod} className='modPor' footer={[
                                 <Button className='btn-h' onClick={closeMod}>Cerrar</Button>
                             ]}>
-                            {
-                                detalle ? detalle.map((de) => (
-                                    <div className="detalle">
-                                        <h1>{de.carpeta}: </h1>
-                                        <h1>{de.cantidad_registros}</h1>
-                                    </div>
-                                )) : <Skeleton active />
-                            }
+                                {
+                                    detalle ? detalle.map((de) => (
+                                        <div className="detalle">
+                                            <h1>{de.carpeta}: </h1>
+                                            <h1>{de.cantidad_registros}</h1>
+                                        </div>
+                                    )) : <Skeleton active />
+                                }
 
                             </Modal>
                         </div>
@@ -322,7 +364,7 @@ const Websockets = ({ grupo1 }) => {
                     </div>
                     <ListaCamaras registros={registros} contador={contador} setPrueba={setPrueba} />
                     <div className="camera-list">
-                        <h1>Notificación de alerta</h1>
+                        <h1>Alertas</h1>
                         <div className="cam">
                             <div className="camera-cont">
                                 <Table columns={columns} dataSource={alertas} />
