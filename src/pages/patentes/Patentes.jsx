@@ -15,7 +15,10 @@ const Patentes = () => {
     useEffect(() => {
         const datas = async()=>{
             try {
-                const { data } = await axios.get('https://teraflex.cl:9000/grupo_usuario/');
+                const { data } = await axios.get('https://teraflex.cl:9000/grupo_usuario/', {
+                    withCredentials: true,
+                    credentials: 'include',
+                });
                 console.log(data);
                 console.log(data.ciudad);
                 setGrupo(data.ciudad);
@@ -33,7 +36,7 @@ const Patentes = () => {
         const users = localStorage.getItem('user');
         setUser(users)
         if (!users) {
-            navigate('/');
+            navigate('https://teraflex.cl:75');
         } else {
             axios.get('https://teraflex.cl:9000/monitoreo_camaras/', {
                 withCredentials: true,
