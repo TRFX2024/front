@@ -16,3 +16,7 @@ html{
 a{
     text-decoration: none;
 }
+.ant-input-outlined:focus{
+    border-color: #ad0e0e;
+    box-shadow: none;
+}

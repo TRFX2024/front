@@ -7,7 +7,7 @@ import { Button, message } from 'antd';
 import { Popconfirm } from 'antd';
 
 
-const ListaNegra = ({ registros }) => {
+const ListaNegra = ({ registros, reFetch }) => {
     const [messageApi, contextHolder] = message.useMessage();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [patente, setPatente] = useState();
@@ -26,15 +26,25 @@ const ListaNegra = ({ registros }) => {
     }
     const elimnar = async (id) => {
         try {
-            await axios.delete(`https://teraflex.cl:9000/eliminar_lista_negra?id=${id}`)
-            messageApi.open({
-                type: 'success',
-                content: 'This is a success message',
-            });
+            const {data} = await axios.delete(`https://teraflex.cl:9000/eliminar_lista_negra?id=${id}`)
+            if(data.success){
+                messageApi.open({
+                    type: 'success',
+                    content: 'Patente se ha eliminado correctamente!',
+                });
+                reFetch();
+            }else{
+                messageApi.open({
+                    type: 'error',
+                    content: 'No tiene permiso para eliminar este registro!',
+                });
+            }
+            
+            
         } catch (error) {
             messageApi.open({
                 type: 'error',
-                content: 'This is an error message',
+                content: 'Error en el servidor!',
             });
             console.log(error);
         }

@@ -1,10 +1,9 @@
 import React from 'react';
-import "./navbar.css";
-import { CarOutlined, HistoryOutlined, HomeOutlined, LogoutOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { CarOutlined, DashboardOutlined, DatabaseOutlined, HistoryOutlined, HomeOutlined, LogoutOutlined, UnorderedListOutlined, UsergroupAddOutlined, VideoCameraAddOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
-const NavBar = () => {
+const Navbar = () => {
     const navigate = useNavigate();
     const onClose = async (e) => {
         e.preventDefault();
@@ -32,29 +31,35 @@ const NavBar = () => {
                 </div> */}
                 <Link className='link' to={""}>
                     <div className="link">
-                        <CarOutlined className='icon' />
-                        <a className="ref">Patentes</a>
+                        <DashboardOutlined className='icon' />
+                        <a className="ref">Dashboard</a>
                     </div>
                 </Link>
-                <Link className='link' to={"historial"}>
+                <Link className='link' to={"usuarios"}>
                     <div className="link">
-                        <HistoryOutlined className='icon' />
-                        <a className="ref">Historial</a>
+                        <UsergroupAddOutlined className='icon' />
+                        <a className="ref">Usuarios</a>
                     </div>
                 </Link>
-                <Link className='link' to={"lista"}>
+                <Link className='link' to={"ciudades"}>
                     <div className="link">
-                        <UnorderedListOutlined className='icon' />
-                        <a className="ref">Lista Negra</a>
+                        <DatabaseOutlined className='icon' />
+                        <a className="ref">Ciudades</a>
                     </div>
                 </Link>
-                {/* <div className="link" onClick={onClose} >
+                <Link className='link' to={"camaras"}>
+                    <div className="link">
+                        <VideoCameraAddOutlined className='icon' />
+                        <a className="ref">Camaras</a>
+                    </div>
+                </Link>
+                <div className="link" onClick={onClose} >
                     <LogoutOutlined className='icon' />
                     <a className='ref'>Logout</a>
-                </div> */}
+                </div>
             </div>
         </div>
     );
 }
 
-export default NavBar;
+export default Navbar;

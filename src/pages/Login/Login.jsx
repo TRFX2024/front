@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../../imgs/Logo2.jpg';
 
+
 axios.defaults.withCredentials = true;
 
 const Login = () => {
@@ -16,6 +17,7 @@ const Login = () => {
         username: undefined,
         password: undefined
     });
+
     const [csrfToken, setCsrfToken] = useState('');
 
     useEffect(() => {
@@ -52,9 +54,12 @@ const Login = () => {
                     },
                 });
             console.log(res.data);
+            localStorage.setItem("admin", res.data.admin);
             localStorage.setItem("user", res.data.user);
             localStorage.setItem("token", csrfToken);
-            if (res.data.r) {
+            if (res.data.r && res.data.admin) {
+               navigate('/admin');
+            }else if (res.data.r && !res.data.admin) {
                 navigate('/home');
             } else {
                 alert("Usuario o contraseña, incorrecta")

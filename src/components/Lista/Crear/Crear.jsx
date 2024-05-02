@@ -4,7 +4,7 @@ import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space } from
 const { Option } = Select;
 import axios from 'axios';
 
-const Crear = () => {
+const Crear = ({reFetch}) => {
     const [form] = Form.useForm();
     const [open, setOpen] = useState(false);
     const [patente, setPatente] = useState();
@@ -24,6 +24,7 @@ const Crear = () => {
                 console.log(res);
                 form.resetFields();
                 setOpen(false);
+                reFetch();
             } catch (error) {
                 console.log(error);
             }

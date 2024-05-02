@@ -6,9 +6,7 @@ import useFetch from '../../hook/useFetch';
 import Crear from '../../components/Lista/Crear/Crear';
 const Lista = () => {
     const [patente, setPatente] = useState('');
-    const res = useFetch(`https://teraflex.cl:9000/lista_negra?patente=${patente}`)
-    console.log(res.data);
-    const { data } = res;
+    const {data, reFetch} = useFetch(`https://teraflex.cl:9000/lista_negra?patente=${patente}`)
     const registros = data ? data.lista : [];
 
     return (
@@ -16,9 +14,9 @@ const Lista = () => {
             <h1>Lista Negra</h1>
             <div className="bnts">
                 <Input type="text" className="inputTexts" onChange={(e) => setPatente(e.target.value)} placeholder='Buscar patente' />
-                <Crear />
+                <Crear reFetch={reFetch} />
             </div>
-            <ListaNegra registros={registros} />
+            <ListaNegra registros={registros} reFetch={reFetch} />
         </div>
     );
 }
