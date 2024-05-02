@@ -103,7 +103,7 @@ const Crear = ({ reFetch }) => {
                         <Col span={12}>
                             <Form.Item
                                 name="grupo"
-                                label="Grupo"
+                                label="Ciudad"
                                 rules={[
                                     {
                                         required: true,

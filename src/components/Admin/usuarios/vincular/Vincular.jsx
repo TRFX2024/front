@@ -122,7 +122,7 @@ const Vincular = ({ id, nombre, reFetch }) => {
                             >
                                 <Transfer
                                     dataSource={mockData}
-                                    titles={['Ciudades', 'Vecinas']}
+                                    titles={['Camaras disponibles', 'Camaras asignadas']}
                                     listStyle={{
                                         width: 500,
                                         height: 200,

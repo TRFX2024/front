@@ -1,29 +1,33 @@
 import React from 'react';
 import "./navbar.css";
 import { CarOutlined, HistoryOutlined, HomeOutlined, LogoutOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import axios from 'axios';
+// import axios from 'axios';
+import logo from '../../imgs/logoGrande.png';
+import logo3 from '../../imgs/logo5.png';
+import logo2 from '../../imgs/Logo2.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
     const navigate = useNavigate();
-    const onClose = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await axios.post("https://teraflex.cl:9000/logout/");
-            localStorage.clear();
-            if (res) {
-                navigate("/");
-            }
-        } catch (error) {
+    // const onClose = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const res = await axios.post("https://teraflex.cl:9000/logout/");
+    //         localStorage.clear();
+    //         if (res) {
+    //             navigate("/");
+    //         }
+    //     } catch (error) {
 
-        }
-    }
+    //     }
+    // }
 
     const admin = localStorage.getItem("user");
     console.log(admin);
 
     return (
         <div className='nav-container'>
+            <img src={logo3} alt="" className='logoNav'/>
             <div className="links">
                 <h1 className='textad'>Bienvenido {admin}</h1>
                 {/* <div className="link">

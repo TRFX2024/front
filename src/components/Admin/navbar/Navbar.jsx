@@ -1,6 +1,7 @@
 import React from 'react';
 import { CarOutlined, DashboardOutlined, DatabaseOutlined, HistoryOutlined, HomeOutlined, LogoutOutlined, UnorderedListOutlined, UsergroupAddOutlined, VideoCameraAddOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import logo3 from '../../../imgs/logo5.png';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
@@ -23,6 +24,7 @@ const Navbar = () => {
 
     return (
         <div className='nav-container'>
+            <img src={logo3} alt="" className='logoNav' />
             <div className="links">
                 <h1 className='textad'>Bienvenido {admin}</h1>
                 {/* <div className="link">
