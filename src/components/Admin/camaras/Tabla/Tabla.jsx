@@ -1,16 +1,26 @@
 import React from 'react';
-import { Button, Popconfirm, Space, Table } from 'antd';
+import { Button, Popconfirm, Space, Table, message } from 'antd';
 import axios from 'axios';
 import Editar from '../Editar/Editar';
 
-const Tabla = ({registros, reFetch}) => {
+const Tabla = ({registros, reFetch, setLoading}) => {
+    const [messageApi, contextHolder] = message.useMessage();
     const eliminar = async (id) => {
         try {
             console.log(id);
             const res = await axios.delete(`https://teraflex.cl:9000/eliminar_camaras?id=${id}`);
+            messageApi.open({
+                type: 'success',
+                content: 'Camara eliminada con exito!!',
+            });
             console.log(res);
             reFetch();
+            setLoading(true);
         } catch (error) {
+            messageApi.open({
+                type: 'error',
+                content: 'Error al eliminar la camara',
+            });
             console.log(error);
         }
     }
@@ -66,6 +76,7 @@ const Tabla = ({registros, reFetch}) => {
 
     return (
         <div>
+            {contextHolder}
              <Table columns={columns} dataSource={registros} />
         </div>
     );

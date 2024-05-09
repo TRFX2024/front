@@ -1,0 +1,51 @@
+.spin{
+    display: grid;
+    place-items: center;
+    height: 100%;
+    font-size: 30rem;
+}
+.dash{
+    height: 100vh;
+    padding: 0 2rem;
+}
+.cantidad-pat1{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 0 3.5rem;
+    
+}
+.cant-pat1{
+    display: grid;
+    grid-template-rows: 2rem 1fr;
+    justify-items: center;
+    padding: 1rem 2rem;
+    height: 8rem;
+    border: 1px solid rgba(128, 128, 128, 0.144);;
+    background: rgba(128, 128, 128, 0.144);
+    border-radius: .5rem;
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+}
+.cant-pat1 p{
+    font-size: 1.3rem;
+}
+.number{
+    font-size: 2.2rem !important;
+    font-weight: bold;
+}
+.datos{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: start;
+    padding: 0 3rem
+}
+.datos button{
+    width: 10rem;
+}
+.cont{
+    width: 30rem;
+}
+.contadores{
+    margin: 1rem 0;
+}

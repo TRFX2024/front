@@ -4,8 +4,8 @@ import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, messa
 import axios from 'axios';
 
 
-const Crear = ({ reFetch }) => {
-    const [loading, setLoading] = useState(false);
+const Crear = ({ reFetch, setLoading }) => {
+    const [loading, setLoadings] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const [form] = Form.useForm();
     const [open, setOpen] = useState(false);
@@ -39,7 +39,7 @@ const Crear = ({ reFetch }) => {
 
 
         try {
-            setLoading(true);
+            setLoadings(true);
             const res = await axios.post(`https://teraflex.cl:9000/admin_crear_camaras/`, {
                 nombre: nombre,
                 ubicacion: ubicacion,
@@ -53,6 +53,7 @@ const Crear = ({ reFetch }) => {
             form.resetFields();
             setOpen(false);
             reFetch();
+            setLoading(true);
         } catch (error) {
             messageApi.open({
                 type: 'error',
@@ -60,7 +61,7 @@ const Crear = ({ reFetch }) => {
             });
             console.log(error);
         } finally {
-            setLoading(false);
+            setLoadings(false);
         }
 
 
