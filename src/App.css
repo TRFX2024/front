@@ -24,3 +24,7 @@ a{
     border-color: #ad0e0e;
     box-shadow: none;
 }
+.ant-input-affix-wrapper-focused{
+    outline: none !important;
+    border-color: #ad0e0e !important;
+}

@@ -1,7 +1,18 @@
 .layout{
     display: grid;
     grid-template-columns: 1fr 6fr;
+    overflow: clip;
+}
+.layout-content-ad{
+    overflow: auto;
+    height: 100vh;
+    background-color: rgb(255, 240, 240);
 }
 .layout-content{
     overflow: auto;
+}
+.layout-fisc{
+    position: relative;
+    background-color: rgb(255, 240, 240);
+    height: 100vh;
 }

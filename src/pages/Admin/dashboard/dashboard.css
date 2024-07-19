@@ -7,6 +7,7 @@
 .dash{
     height: 100vh;
     padding: 0 2rem;
+    
 }
 .cantidad-pat1{
     display: grid;
@@ -48,4 +49,15 @@
 }
 .contadores{
     margin: 1rem 0;
+}
+.general{
+    display: grid;
+    gap: .2rem;
+}
+.box-shadow{
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+    display: grid;
+}
+.pieBar, .bar{
+    padding: 0 3.5rem;
 }

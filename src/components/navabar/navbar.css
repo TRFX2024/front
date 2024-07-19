@@ -3,45 +3,53 @@
     width: 100%;
     height: 100%;
     place-items: center;
-    gap: 1rem;
+   
 }
 .ref{
     text-decoration: none;
-    color: white;
+    color: #ad0e0e;
     font-size: 1.4rem;
     font-weight: 600;
 }
 .nav-container{
-    background: linear-gradient(180deg, #d91111 0%, #ad0e0e 100%);
     height: 100vh;
     display: grid;
-    grid-template-rows: 3rem 1fr;
+    grid-template-rows: 5rem 1fr;
+    place-items: center;
 }
-.link{
+.link {
     place-items: center;
     display: flex;
     justify-content: space-around;
-    flex-direction: column;
-    /* justify-content: center; */
-    /* gap: 1.5rem; */
+    flex-direction: row;
     color: white;
     height: 5rem;
     width: 100%;
     transition: all 0.3s ease;
     cursor: pointer;
+    position: relative;
+    /* Radio de borde predeterminado */
 }
-.link:hover{
-    background: #ad0e0e;
+
+.links-por:hover {
+    background-color: #ad0e0e;
+    color: white;
+    transition: all 0.3s ease; /* Invierte el radio de borde al hacer hover */
 }
 .icon{
     font-size: 2rem;
+    color: #ad0e0e;
 }
 .textad{
     font-size: 1.45rem;
-    color: white;
+    color: #ad0e0e;
     text-align: center;
 }
 .logoNav{
     height: 4rem;
-    width: 100%
+    width: 100%;
+    object-fit: cover;
+}
+.links-por{
+    width: 100%;
 }

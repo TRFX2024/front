@@ -6,7 +6,7 @@ const LayoutAdmin = () => {
     return (
         <div className='layout'>
             <Navbar/>
-            <div className="layout-content">
+            <div className="layout-content-ad">
                 <Outlet/>
             </div>
         </div>

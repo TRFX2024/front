@@ -1,0 +1,98 @@
+
+.nav-container-ad{
+    box-shadow: 15px 0px 12px -11px rgba(0,0,0,0.1);
+    z-index: 1;
+    display: grid;
+    grid-template-rows: 5rem 1fr;
+}
+.links-ad{
+    height: 100%;
+    display: grid;
+    grid-template-rows: 6rem 1fr;
+}
+.link-ad{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+.links-ad-top{
+    width: 100%;
+}
+
+.icon-ad, .ref-ad{
+    color: rgb(121, 121, 121);
+    font-weight: 700;
+}
+.link-in{
+    display: grid;
+    grid-template-columns: 1.5rem 1fr;
+    padding-left: 2rem;
+}
+.link-path{
+    display: grid;
+    width: 100%;
+    padding: .8rem 0; 
+    transition: all 0.3s ease;
+}
+.link-path:hover{
+    color: white !important;
+    background: linear-gradient(90deg, rgba(173,14,14,0.49761911600577735) 0%, rgba(217,17,17,0) 100%);
+}
+.link-path:hover .icon-ad, .link-path:hover .ref-ad{
+    color: white;
+}
+.logout{
+    border: 1px solid transparent;
+    display: grid;
+    height: 2.5rem;
+    border-radius: .5rem;
+    place-items: center;
+    width: 80%;
+    cursor: pointer;
+    background: #ad0e0e;
+    transition: all 0.3s ease;
+}
+.logout .icon-ad, .logout .ref-ad{
+    color: white;
+}
+
+.text-ad{
+    font-size: 1rem;
+    text-align: center;
+}
+.profile{
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    place-items: center;
+    padding: 0 1.5rem;
+}
+.icon-profile{
+    font-size: 2rem;
+}
+.logoNav1{
+    height: 5rem;
+    width: 100%;
+    object-fit: cover;
+}
+.detalle-ad{
+    display: grid;
+    grid-template-rows: 2rem 1fr;
+}
+.email-ad{
+    font-size: .7rem;
+}
+.logout-ad{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 40%;
+}
+.logout:hover{
+    border: 1px solid #ad0e0e;
+    background-color: white;
+}
+
+.logout:hover .icon-ad, .logout:hover .ref-ad{
+    color: #ad0e0e;
+}

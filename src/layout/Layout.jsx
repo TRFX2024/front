@@ -7,7 +7,7 @@ const Layout = () => {
     return (
         <div className='layout'>
             <NavBar/>
-            <div className="layout-content">
+            <div className="layout-content-ad">
                 <Outlet/>
             </div>
         </div>

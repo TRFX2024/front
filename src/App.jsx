@@ -11,6 +11,8 @@ import Usuarios from "./pages/Admin/usuarios/Usuarios";
 import Ciudades from "./pages/Admin/ciudades/Ciudades";
 import Dashboard from "./pages/Admin/dashboard/Dashboard";
 import Camaras from "./pages/Admin/camaras/Camaras";
+import LayoutFiscalia from "./layout/LayoutFiscalia";
+import Fiscalia from "./pages/Fiscalia/Fiscalia";
 
 
 function App() {
@@ -59,6 +61,17 @@ function App() {
           {
             path: "camaras",
             element: <Camaras/> 
+          }
+        ]
+      }
+      ,
+      {
+        path: "/fiscalia",
+        element: <LayoutFiscalia/>,
+        children: [
+          {
+            path: "",
+            element: <Fiscalia/>
           }
         ]
       }

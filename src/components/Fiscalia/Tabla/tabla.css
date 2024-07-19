@@ -1,0 +1,12 @@
+.historial-fisc{
+    padding-top: 5rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    height: 100vh;
+    background-color: rgb(255, 240, 240);
+  overflow: auto;
+}
+.text-hw{
+    width: 15rem;
+
+}
